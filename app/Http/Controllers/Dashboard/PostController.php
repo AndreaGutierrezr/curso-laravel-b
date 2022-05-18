@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Dashboard;
 use App\Models\Pos;
 use App\Models\Post;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Post\PutRequest;
 use App\Http\Requests\Post\StoreRequest;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -35,8 +36,9 @@ class PostController extends Controller
         //$categories = Category::get(); //OBTENER TODAS LAS CATEGORIAS
         //dd($categories[0]->title);
         $categories = Category::pluck('id', 'title');
+        $post = new Post();
         //dd($categories);
-        echo view('dashboard.post.create', compact('categories'));
+        return view('dashboard.post.create', compact('categories', 'post'));
     }
 
     /**
@@ -64,10 +66,13 @@ class PostController extends Controller
         //$data = array_merge($request->all(),['image' => '']);
         //dd($data);
         //Post::create($request->all());
-        $data = $request->validated();
+        //$data = $request->validated();
        // $data['slug'] = Str::slug($data['title']);
-        Post::create($data);
-    }
+       // Post::create($data);
+    Post::create($request->validated());
+    return to_route("post.index")->with('status',"Registro creado");
+    ///return redirect()->route("post.index")->with('status',"Registro creado");
+}
 
     /**
      * Display the specified resource.
@@ -75,9 +80,9 @@ class PostController extends Controller
      * @param  \App\Models\Pos  $pos
      * @return \Illuminate\Http\Response
      */
-    public function show(Pos $pos)
+    public function show(Post $post)
     {
-        //
+        return view("dashboard.post.show", compact('post'));
     }
 
     /**
@@ -89,7 +94,7 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::pluck('id','title');
-        echo view ('dashboard.post.edit', compact('categories', 'post'));
+        return view('dashboard.post.edit', compact('categories', 'post'));
     }
 
     /**
@@ -99,9 +104,32 @@ class PostController extends Controller
      * @param  \App\Models\Pos  $pos
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pos $pos)
+    public function update(PutRequest $request, Post $post)
     {
-        //
+
+        $data = $request->validated();
+
+        if(isset($data["image"])){
+            
+            //dd($request->image);
+            
+            //dd($request->validated()["image"]->hashName());
+
+            //dd($request->validated()["image"]->getClientOriginalName());
+
+            // dd($request->validated()["image"]->extension());
+
+            $data["image"] = $filename = time().".".$data["image"]->extension();
+
+            //dd($filename);
+
+            $request->image->move(public_path("image/otro"), $filename);
+
+        }
+
+        $post->update($data);
+
+        return to_route("post.index")->with('status', "Registro actualizado");
     }
 
     /**
@@ -110,8 +138,10 @@ class PostController extends Controller
      * @param  \App\Models\Pos  $pos
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pos $pos)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        //return to_route("post.index")->with('status', "Registro eliminado");
+        return redirect()->route("post.index")->with('status',"Registro creado");
     }
 }
