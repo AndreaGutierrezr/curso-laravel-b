@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
+    //CAMPOS QUE QUEREMOS QUE SEAN INSERTABLES/QUE VAMOS A MANEJAR
+    protected $fillable = ['title','slug','description', 'content','image','posted', 'category_id'];
 }
