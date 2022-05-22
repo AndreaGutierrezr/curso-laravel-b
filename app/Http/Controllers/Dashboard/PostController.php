@@ -21,6 +21,7 @@ class PostController extends Controller
      */
     public function index()
     {
+        // dd(Category::find(1)->posts());
         //$posts = Post::get();
         $posts = Post::paginate(2);
         return view('dashboard.post.index', compact('posts'));

@@ -7,10 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    {{-- {{ 
-        $user 
-        /* $user->name*/
-    }} --}}
+    <h1>BIENVENIDO</h1>
 
     
 </body>
