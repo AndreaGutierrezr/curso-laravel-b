@@ -9,6 +9,9 @@
                 <th>Titulo</th>
                 <th>Categoria</th>
                 <th>Posted</th>
+                <th>Contenido</th>
+                <th>Descripción</th>
+                <th>Imagen</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -18,6 +21,13 @@
                 <td>{{$p->title}}</td>
                 <td>{{$p->category->title}}</td>
                 <td>{{$p->posted}}</td>
+                <td>{{$p->content}}</td>
+                <td>{{$p->description}}</td>
+                <td>
+                    <center>
+                        <img src="{{asset('image/otro/'.$p->image)}}" width="50%" alt="" srcset="">
+                    </center>
+                </td>
                 <td>
                     <a class="btn mt-2 btn-primary" href="{{route('post.edit', $p)}}">Editar</a>
                     <br>

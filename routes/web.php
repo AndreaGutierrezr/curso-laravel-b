@@ -15,12 +15,12 @@ use App\Http\Controllers\Dashboard\CategoryController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('auth.login');
+});
 
 
-Route::group(['prefix'=> 'dashboard', 'middleware' => 'auth'], function() {
+Route::group(['prefix'=> 'dashboard', 'middleware' => ['auth', "admin"]], function() {
     
     Route::get('/', function () {
         return view('dashboard');
