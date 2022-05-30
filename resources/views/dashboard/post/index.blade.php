@@ -1,9 +1,15 @@
 @extends('dashboard.layout')
 
+@section('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+
+@endsection
+
 @section('content')
 <a class="btn btn-success my-3" href="{{route('post.create')}}">Crear</a>
 
-    <table class="table mb-3">
+    <table class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%" id="post">
         <thead>
             <tr>
                 <th>Titulo</th>
@@ -44,4 +50,19 @@
         </tbody>
     </table>
     {{$posts->links()}}
+    
+    @section('js')
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    
+    <script>
+        $(document).ready(function () {
+            $('#post').DataTable({
+                "lengthMenu" : [[5,10,50,-1],[5,10,50, "All"]]
+            });
+        });
+    </script>
+    @endsection
+
 @endsection

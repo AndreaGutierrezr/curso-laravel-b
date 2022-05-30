@@ -19,6 +19,10 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::get('/welcome', function(){
+    return view('welcome');
+})->name("welcome");
+
 
 Route::group(['prefix'=> 'dashboard', 'middleware' => ['auth', "admin"]], function() {
     
