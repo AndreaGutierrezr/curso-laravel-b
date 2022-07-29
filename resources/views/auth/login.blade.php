@@ -1,3 +1,61 @@
+<div id="preloader">
+    <div id="logostatus">
+        <img src="path/to/logo" alt="Logotipo">
+    </div>
+    <div id="status">&nbsp;</div>
+</div>
+<style>
+   #preloader
+  {
+    position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: darkblueColor;
+  /* change if the mask should have another color then white */
+  z-index: 1031;
+  }
+/* makes sure it stays on top */
+#status
+ {
+    width: 200px;
+  height: 100px;
+  position: absolute;
+  left: 50%;
+  /* centers the loading animation horizontally one the screen */
+  top: 60%;
+  /* centers the loading animation vertically one the screen */
+  background-image: url(/assets/image/otro/1652912456.png);
+  /* path to your loading animation */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size contain
+  margin: -100px 0 0 -100px;
+/* is width and height divided by two */
+ }
+#logostatus
+{
+    width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 50%;
+  /* centers the loading animation horizontally one the screen */
+  top: 45%;
+  margin: -100px 0 0 -100px;
+  /* is width and height divided by two */
+  img
+    width 100%
+}
+</style>
+<script>
+    window.addEventListener('load', function(){
+        $('#status').fadeOut(); // will first fade out the loading animation
+        $('#preloader').delay(5000).fadeOut('slow'); // will fade out the white DIV that covers the website.
+        //$('body').delay(350).css({'overflow':'visible'});
+    }, false);
+</script>
+
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
