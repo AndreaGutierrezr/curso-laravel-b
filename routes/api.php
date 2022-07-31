@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +38,6 @@ Route::get('category/{category}/posts', [CategoryController::class, 'posts']);
 // axios.get('/api/category').then(response => {
 //     console.log(response)
 // });
+
+//USUARIOS - TOKEN
+Route::post('user/login', [UserController::class, 'login']);
